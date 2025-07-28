@@ -1,0 +1,52 @@
+.clip-invisible {
+  clip: rect(0 0 0 0);
+}
+
+.font {
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  font-family: Inter;
+}
+
+.MarckScript {
+  font-family: Marck Script;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fadeInAnimation {
+  animation-name: fadeIn;
+  animation-duration: 300ms;
+}
+
+.taskShadow {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+.signInGradient {
+  background: linear-gradient(0deg, #0c3b2e 17.19%, rgba(12, 59, 46, 0) 100%);
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a5a5a5;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #848484;
+}
