@@ -3,45 +3,69 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import Image from "next/image";
 
-const navItems = [
+const mainNavItems = [
   { label: "Dashboard", href: "/dashboard" },
   { label: "Maszyny", href: "/machines" },
   { label: "Zlecenia", href: "/work-orders" },
   { label: "Powiadomienia", href: "/notifications" },
   { label: "Raporty", href: "/reports" },
   { label: "Wyszukiwanie", href: "/search" },
-  { label: "Tworzenie zlecenia konserwacyjnego", href: "/work-orders/new" },
-  { label: "Zarządzanie użytkownikami", href: "/users" },
-  { label: "Profil użytkownika", href: "/profile" },
-  { label: "Historia aktywności", href: "/activity" },
+  { label: "Nowe zlecenie", href: "/work-orders/new" },
+  { label: "Użytkownicy", href: "/users" },
+  { label: "Profil", href: "/profile" },
+  { label: "Aktywność", href: "/activity" },
   { label: "Kalendarz", href: "/calendar" },
   { label: "Statystyki", href: "/statistics" },
   { label: "Pomoc", href: "/help" },
-  { label: "Ustawienia", href: "/settings" },
 ];
+
+const settingsNavItem = { label: "Ustawienia", href: "/settings" };
 
 export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 p-6 bg-gray-100 border-r dark:bg-neutral-900 border-neutral-300 dark:border-neutral-800">
-      <h2 className="mb-6 text-xl font-bold">Serwiso</h2>
-      <nav className="space-y-3">
-        {navItems.map(({ label, href }) => (
+    <aside className="flex flex-col w-64 p-6 border-r bg-surface text-foreground border-border">
+      <div className="flex justify-center mb-6">
+        <Image
+          src="/assets/images/samelogo.png"
+          alt="Logo Serwiso"
+          width={72}
+          height={72}
+        />
+      </div>
+
+      <nav className="flex-1 space-y-2">
+        {mainNavItems.map(({ label, href }) => (
           <Link
             key={href}
             href={href}
             className={clsx(
-              "block rounded px-2 py-1 hover:bg-gray-200 dark:hover:bg-neutral-800 transition",
-              pathname === href &&
-                "bg-gray-200 dark:bg-neutral-800 font-semibold"
+              "block px-3 py-2 rounded-md text-sm transition",
+              pathname === href
+                ? "bg-accent text-white font-semibold"
+                : "hover:bg-elevated hover:text-accent"
             )}
           >
             {label}
           </Link>
         ))}
       </nav>
+      <div className="pt-4 mt-4 border-t border-border">
+        <Link
+          href={settingsNavItem.href}
+          className={clsx(
+            "block px-3 py-2 rounded-md text-sm transition",
+            pathname === settingsNavItem.href
+              ? "bg-accent text-white font-semibold"
+              : "hover:bg-elevated hover:text-accent"
+          )}
+        >
+          {settingsNavItem.label}
+        </Link>
+      </div>
     </aside>
   );
 }
