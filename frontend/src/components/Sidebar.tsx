@@ -14,7 +14,6 @@ const mainNavItems = [
   { label: "Wyszukiwanie", href: "/search" },
   { label: "Nowe zlecenie", href: "/work-orders/new" },
   { label: "Użytkownicy", href: "/users" },
-  { label: "Profil", href: "/profile" },
   { label: "Aktywność", href: "/activity" },
   { label: "Kalendarz", href: "/calendar" },
   { label: "Statystyki", href: "/statistics" },
@@ -27,7 +26,7 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="flex flex-col w-64 p-6 border-r bg-surface text-foreground border-border">
+    <aside className="flex flex-col w-64 p-6 border-r bg-surface border-border text-foreground">
       <div className="flex justify-center mb-6">
         <Image
           src="/assets/images/samelogo.png"
@@ -37,30 +36,35 @@ export default function Sidebar() {
         />
       </div>
 
-      <nav className="flex-1 space-y-2">
-        {mainNavItems.map(({ label, href }) => (
-          <Link
-            key={href}
-            href={href}
-            className={clsx(
-              "block px-3 py-2 rounded-md text-sm transition",
-              pathname === href
-                ? "bg-accent text-white font-semibold"
-                : "hover:bg-elevated hover:text-accent"
-            )}
-          >
-            {label}
-          </Link>
-        ))}
+      <nav className="flex-1 space-y-1">
+        {mainNavItems.map(({ label, href }) => {
+          const isActive = pathname === href;
+
+          return (
+            <Link
+              key={href}
+              href={href}
+              className={clsx(
+                "flex items-center px-4 py-2 text-sm font-medium rounded-md transition-all",
+                isActive
+                  ? "bg-elevated text-foreground border-l-4 border-accent"
+                  : "text-muted hover:bg-elevated hover:text-accent"
+              )}
+            >
+              {label}
+            </Link>
+          );
+        })}
       </nav>
+
       <div className="pt-4 mt-4 border-t border-border">
         <Link
           href={settingsNavItem.href}
           className={clsx(
-            "block px-3 py-2 rounded-md text-sm transition",
+            "flex items-center px-4 py-2 text-sm font-medium rounded-md transition-all",
             pathname === settingsNavItem.href
-              ? "bg-accent text-white font-semibold"
-              : "hover:bg-elevated hover:text-accent"
+              ? "bg-elevated text-foreground border-l-4 border-accent"
+              : "text-muted hover:bg-elevated hover:text-accent"
           )}
         >
           {settingsNavItem.label}
