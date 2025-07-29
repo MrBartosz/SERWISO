@@ -1,10 +1,18 @@
 "use client";
 
 import Link from "next/link";
-// TODO: Podmień tymczasową flagę na realny hook z auth
+import { useRouter } from "next/navigation";
+
 const isLoggedIn = true;
 
 export default function Header() {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    // logika wylogowania bedzie do zrobienia
+    router.push("/login");
+  };
+
   return (
     <header className="flex items-center justify-between px-6 py-4 border-b shadow-sm border-border bg-elevated text-foreground">
       <div>
@@ -30,12 +38,12 @@ export default function Header() {
             >
               Profil
             </Link>
-            <Link
-              href="/logout"
+            <button
+              onClick={handleLogout}
               className="transition text-muted hover:text-error"
             >
               Wyloguj
-            </Link>
+            </button>
           </>
         ) : (
           <Link
