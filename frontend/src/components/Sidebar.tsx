@@ -3,41 +3,64 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
-import Image from "next/image";
+import {
+  LayoutDashboard,
+  Settings,
+  Users,
+  Calendar,
+  Bell,
+  FileText,
+  Wrench,
+  Search,
+  PlusCircle,
+  BarChart2,
+  HelpCircle,
+  Activity,
+} from "lucide-react";
 
-const mainNavItems = [
-  { label: "Dashboard", href: "/dashboard" },
-  { label: "Maszyny", href: "/machines" },
-  { label: "Zlecenia", href: "/work-orders" },
-  { label: "Powiadomienia", href: "/notifications" },
-  { label: "Raporty", href: "/reports" },
-  { label: "Wyszukiwanie", href: "/search" },
-  { label: "Nowe zlecenie", href: "/work-orders/new" },
-  { label: "Użytkownicy", href: "/users" },
-  { label: "Aktywność", href: "/activity" },
-  { label: "Kalendarz", href: "/calendar" },
-  { label: "Statystyki", href: "/statistics" },
-  { label: "Pomoc", href: "/help" },
+const USER = {
+  name: "Jan Kowalski",
+  role: "Administrator",
+  initials: "JK",
+  // image: "/path/to/avatar.jpg" // może później dodam
+};
+
+const navItems = [
+  { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { label: "Maszyny", href: "/machines", icon: Wrench },
+  { label: "Zlecenia", href: "/work-orders", icon: FileText },
+  { label: "Nowe zlecenie", href: "/work-orders/new", icon: PlusCircle },
+  { label: "Powiadomienia", href: "/notifications", icon: Bell },
+  { label: "Raporty", href: "/reports", icon: FileText },
+  { label: "Statystyki", href: "/statistics", icon: BarChart2 },
+  { label: "Wyszukiwanie", href: "/search", icon: Search },
+  { label: "Użytkownicy", href: "/users", icon: Users },
+  { label: "Aktywność", href: "/activity", icon: Activity },
+  { label: "Kalendarz", href: "/calendar", icon: Calendar },
+  { label: "Pomoc", href: "/help", icon: HelpCircle },
 ];
 
-const settingsNavItem = { label: "Ustawienia", href: "/settings" };
+const settingsItem = { label: "Ustawienia", href: "/settings", icon: Settings };
 
 export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="flex flex-col w-64 p-6 border-r bg-surface border-border text-foreground">
-      <div className="flex justify-center mb-6">
-        <Image
-          src="/assets/images/samelogo.png"
-          alt="Logo Serwiso"
-          width={72}
-          height={72}
-        />
+    <aside className="flex flex-col w-64 h-screen px-6 py-8 border-r shadow-md bg-gradient-to-b from-background/90 to-surface/80 backdrop-blur-xl border-border text-foreground">
+      <div className="flex items-center gap-3 mb-8">
+        <div className="flex items-center justify-center w-10 h-10 text-sm font-bold uppercase rounded-full shadow-inner bg-muted text-accent">
+          {USER.initials}
+        </div>
+        <div className="flex flex-col">
+          <span className="text-sm font-semibold leading-tight">
+            {USER.name}
+          </span>
+          <span className="text-xs text-muted">{USER.role}</span>
+        </div>
       </div>
 
-      <nav className="flex-1 space-y-1">
-        {mainNavItems.map(({ label, href }) => {
+      <nav className="flex-1 space-y-1 text-sm font-medium">
+        {navItems.map(({ label, href, icon: Icon }) => {
           const isActive = pathname === href;
 
           return (
@@ -45,29 +68,41 @@ export default function Sidebar() {
               key={href}
               href={href}
               className={clsx(
-                "flex items-center px-4 py-2 text-sm font-medium rounded-md transition-all",
+                "flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-150 group",
                 isActive
-                  ? "bg-elevated text-foreground border-l-4 border-accent"
-                  : "text-muted hover:bg-elevated hover:text-accent"
+                  ? "bg-accent/10 text-accent font-semibold shadow-sm border-l-4 border-accent"
+                  : "text-muted hover:text-accent hover:bg-muted/10"
               )}
             >
+              <Icon
+                className={clsx("w-4 h-4 shrink-0", {
+                  "text-accent": isActive,
+                  "text-muted group-hover:text-accent": !isActive,
+                })}
+              />
               {label}
             </Link>
           );
         })}
       </nav>
 
-      <div className="pt-4 mt-4 border-t border-border">
+      <div className="pt-6 mt-6 border-t border-border">
         <Link
-          href={settingsNavItem.href}
+          href={settingsItem.href}
           className={clsx(
-            "flex items-center px-4 py-2 text-sm font-medium rounded-md transition-all",
-            pathname === settingsNavItem.href
-              ? "bg-elevated text-foreground border-l-4 border-accent"
-              : "text-muted hover:bg-elevated hover:text-accent"
+            "flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-150 text-sm font-medium",
+            pathname === settingsItem.href
+              ? "bg-accent/10 text-accent font-semibold border-l-4 border-accent"
+              : "text-muted hover:text-accent hover:bg-muted/10"
           )}
         >
-          {settingsNavItem.label}
+          <settingsItem.icon
+            className={clsx("w-4 h-4 shrink-0", {
+              "text-accent": pathname === settingsItem.href,
+              "text-muted hover:text-accent": pathname !== settingsItem.href,
+            })}
+          />
+          {settingsItem.label}
         </Link>
       </div>
     </aside>
