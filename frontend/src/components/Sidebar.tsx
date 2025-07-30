@@ -26,7 +26,7 @@ const USER = {
 };
 
 const navItems = [
-  { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { label: "Panel główny", href: "/dashboard", icon: LayoutDashboard },
   { label: "Maszyny", href: "/machines", icon: Wrench },
   { label: "Zlecenia", href: "/work-orders", icon: FileText },
   { label: "Nowe zlecenie", href: "/work-orders/new", icon: PlusCircle },
