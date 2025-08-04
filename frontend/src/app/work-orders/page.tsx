@@ -79,6 +79,8 @@ export default function WorkOrdersPage() {
     switch (sortOption) {
       case "high":
         return list.filter((wo) => wo.priority === "high");
+      case "medium":
+        return list.filter((wo) => wo.priority === "medium");
       case "low":
         return list.filter((wo) => wo.priority === "low");
       case "newest":
@@ -166,8 +168,9 @@ export default function WorkOrdersPage() {
               className="w-full px-4 py-3 text-base font-medium transition-all duration-200 border rounded-xl border-border/20 bg-surface/70 backdrop-blur text-foreground hover:border-border/60 focus:border-border/60 focus:ring-2 focus:ring-border/40"
             >
               <option value="default">Sortuj według</option>
-              <option value="high">Priorytet wysoki 🔥</option>
-              <option value="low">Priorytet niski 🛠️</option>
+              <option value="high">Priorytet wysoki 🔴</option>
+              <option value="medium">Priorytet średni 🟠</option>
+              <option value="low">Priorytet niski 🟢</option>
               <option value="newest">Najnowsze utworzone 🆕</option>
               <option value="mostUrgent">Najbardziej pilne ⚠️</option>
               <option value="leastUrgent">Najmniej pilne 📅</option>
